@@ -1,19 +1,13 @@
 package step2
 
+import step2.Operation.Companion.CALCULATIONS
+import step2.Operation.Companion.SPACE
+
 /**
  *
  * @author Leo
  */
 class Calculator {
-
-    companion object {
-        val PLUS = "+"
-        val MINUS = "-"
-        val MULTIPLE = "*"
-        val DIVIDE = "/"
-        val SPACE = " "
-        val EMPTY = ""
-    }
 
     fun calculate(expression: String): Long {
         val classifiedParams = classifyParams(expression = expression)
@@ -29,7 +23,7 @@ class Calculator {
                     return@forEach
                 }
 
-                result = operations[index - 1].calculation.apply(result, number)
+                result = operations[index - 1].calculation(result, number)
             }
 
         return result
@@ -40,9 +34,8 @@ class Calculator {
         val operations = mutableListOf<Operation>()
 
         expression.split(SPACE)
-            .withIndex()
-            .forEach { (index, param) ->
-                if (index % 2 == 0) {
+            .forEach { param ->
+                if (!CALCULATIONS.contains(param)) {
                     numbers.add(param.toLong())
                     return@forEach
                 }
