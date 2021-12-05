@@ -27,11 +27,11 @@ enum class Operation(val symbol: String, val calculation: (Long, Long) -> Long) 
     companion object {
         fun findCalculation(symbol: String?): Operation {
             require(symbol != null && symbol != OperationConstant.SPACE && symbol != OperationConstant.EMPTY) {
-                throw IllegalArgumentException("null, 빈 문자열, 공백은 허용되지 않습니다.")
+                "null, 빈 문자열, 공백은 허용되지 않습니다."
             }
 
             require(values().map { it.symbol }.contains(symbol)) {
-                throw IllegalArgumentException("사칙연산 기호가 아닙니다.")
+                "사칙연산 기호가 아닙니다."
             }
 
             return values().first() { it.symbol == symbol }
